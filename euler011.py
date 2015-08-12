@@ -1,5 +1,3 @@
-# TODO: fix this so that it works
-
 """
 In the 20 x 20 grid below, four numbers along a diagonal line have been marked in
 red.
@@ -67,11 +65,20 @@ def right(grid, adj):
 
 def diag(grid, adj):
     """ helper to answer """
-    seq = deque(grid[i, i] for i in xrange(adj))
-    seq_prods = [reduce(mul, seq)]
-    for i in xrange(adj, min(grid.shape)):
-        seq_prods.append(update(seq, grid[i, i], seq_prods[-1]))
-    return max(seq_prods)
+    biggest = 0
+    nrows, ncols = grid.shape
+    for row in xrange(nrows - adj):
+        for col_off in xrange(ncols - adj):
+            if row + col_off + adj >= ncols:
+                continue
+            seq = deque(grid[row + step, row + col_off + step]
+                        for step in xrange(adj))
+            seq_prods = [reduce(mul, seq)]
+            for step in xrange(adj, ncols - row - col_off):
+                seq_prods.append(update(seq, grid[row + step, row + col_off +
+                                                  step], seq_prods[-1]))
+            biggest = max(biggest, max(seq_prods))
+    return biggest
 
 
 def answer(grid, adj=4):
