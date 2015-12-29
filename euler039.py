@@ -14,7 +14,7 @@ def answer(perimeter_limit):
     p_count = defaultdict(int)
     max_p, max_count = -1, -1
 
-    max_side = int(perimeter_limit / (2 + sqrt(2)))
+    max_side = int(round(perimeter_limit / (2 + sqrt(2))))
     for a in xrange(1, max_side):
         for b in xrange(a, perimeter_limit/2):
             c = int(sqrt(a**2 + b**2))
