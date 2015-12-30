@@ -9,6 +9,7 @@ How many such routes are there through a 20 x 20 grid?
 
 from functools import lru_cache
 import sys
+from scipy.special import binom
 
 @lru_cache(maxsize=None)
 def num_paths(x, y):
@@ -17,9 +18,12 @@ def num_paths(x, y):
 
   return num_paths(x-1, y) + num_paths(x, y-1)
 
+def faster(x, y):
+    return int(binom(x+y, x))
+
 if __name__ == '__main__':
   try:
     x, y = int(sys.argv[1]), int(sys.argv[2])
-    print(num_paths(x, y))
+    print(faster(x, y))
   except:
     pass
