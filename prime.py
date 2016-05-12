@@ -69,7 +69,7 @@ def all_factors(n):
         thiselt = elts[i]
         thismax = f.count(thiselt)
         powers = [1]
-        for j in xrange(thismax):
+        for j in range(thismax):
             powers.append(powers[-1] * thiselt)
         for d in gen_inner(i + 1):
             for prime_power in powers:
